@@ -1,0 +1,14 @@
+{
+  "name": "filler-wasm-code",
+  "collaborators": [
+    "Andrew Havard <ahavard@smu.edu>"
+  ],
+  "version": "0.1.0",
+  "files": [
+    "filler_wasm_code_bg.wasm",
+    "filler_wasm_code.js",
+    "filler_wasm_code.d.ts"
+  ],
+  "browser": "filler_wasm_code.js",
+  "types": "filler_wasm_code.d.ts"
+}

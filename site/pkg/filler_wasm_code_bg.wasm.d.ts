@@ -1,0 +1,31 @@
+/* tslint:disable */
+/* eslint-disable */
+export const memory: WebAssembly.Memory;
+export function get_choices(a: number, b: number): void;
+export function gen_random_board(): number;
+export function __wbg_board_free(a: number): void;
+export function board_from_str(a: number, b: number): number;
+export function board_get_player_turn(a: number): number;
+export function board_get_string(a: number, b: number): void;
+export function board_get_cell(a: number, b: number, c: number): number;
+export function board_run_turn(a: number, b: number): number;
+export function board_get_player_squares(a: number, b: number, c: number): void;
+export function solve_board(a: number, b: number, c: number): number;
+export function test_distribution_timer(): void;
+export function __wbg_distributiontimer_free(a: number): void;
+export function distributiontimer_new(a: number, b: number): number;
+export function distributiontimer_start_timer(a: number): void;
+export function distributiontimer_record_time(a: number, b: number): void;
+export function distributiontimer_print_distribution(a: number): void;
+export function distributiontimer_combine(a: number, b: number): void;
+export function wmt_bootstrap(a: number, b: number, c: number): number;
+export function __wbg__worker_free(a: number): void;
+export function __wbindgen_malloc(a: number): number;
+export function __wbindgen_realloc(a: number, b: number, c: number): number;
+export const __wbindgen_export_2: WebAssembly.Table;
+export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__h890dbfcd307c8a95(a: number, b: number, c: number): void;
+export function _dyn_core__ops__function__FnMut__A____Output___R_as_wasm_bindgen__closure__WasmClosure___describe__invoke__hdc27d817e80cec03(a: number, b: number, c: number): void;
+export function __wbindgen_add_to_stack_pointer(a: number): number;
+export function __wbindgen_free(a: number, b: number): void;
+export function __wbindgen_exn_store(a: number): void;
+export function wasm_bindgen__convert__closures__invoke2_mut__h6212bc83b9e52cf5(a: number, b: number, c: number, d: number): void;
