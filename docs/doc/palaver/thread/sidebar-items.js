@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["count","Count the number of threads of the current process. Uses `/proc/self/stat`:`num_threads` on Linux, `task_threads` on macOS."],["gettid","Get an identifier for the thread;"]]};

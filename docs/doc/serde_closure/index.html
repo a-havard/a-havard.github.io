@@ -1,0 +1,140 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="Serializable and debuggable closures."><meta name="keywords" content="rust, rustlang, rust-lang, serde_closure"><title>serde_closure - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../normalize.css"><link rel="stylesheet" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../ayu.css" disabled><link rel="stylesheet" href="../dark.css" disabled><link rel="stylesheet" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script defer src="../crates.js"></script><script defer src="../main.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../serde_closure/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../serde_closure/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Crate serde_closure</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.2.14</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#attributes">Attribute Macros</a></li></ul></section></div></nav><main><div class="width-limiter"><div class="sub-container"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Crate <a class="mod" href="#">serde_closure</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/serde_closure/lib.rs.html#1-599">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>Serializable and debuggable closures.</p>
+<p style="font-family: 'Fira Sans',sans-serif;padding:0.3em 0"><strong>
+<a href="https://crates.io/crates/serde_closure">📦&nbsp;&nbsp;Crates.io</a>&nbsp;&nbsp;│&nbsp;&nbsp;<a href="https://github.com/alecmocatta/serde_closure">📑&nbsp;&nbsp;GitHub</a>&nbsp;&nbsp;│&nbsp;&nbsp;<a href="https://constellation.zulipchat.com/#narrow/stream/213236-subprojects">💬&nbsp;&nbsp;Chat</a>
+</strong></p>
+<p>This library provides macros that wrap closures to make them serializable
+and debuggable.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>one = <span class="number">1</span>;
+<span class="kw">let </span>plus_one = <span class="macro">Fn!</span>(|x: i32| x + one);
+
+<span class="macro">assert_eq!</span>(<span class="number">2</span>, plus_one(<span class="number">1</span>));
+<span class="macro">println!</span>(<span class="string">&quot;{:#?}&quot;</span>, plus_one);
+
+<span class="comment">// prints:
+// Fn&lt;main::{{closure}} at main.rs:6:15&gt; {
+//     one: 1,
+//     source: &quot;| x : i32 | x + one&quot;,
+// }</span></code></pre></div>
+<p>This library aims to work in as simple and safe a way as possible. It
+currently requires nightly Rust for the <code>unboxed_closures</code> and <code>fn_traits</code>
+features (rust issue
+<a href="https://github.com/rust-lang/rust/issues/29625">#29625</a>).</p>
+<ul>
+<li>There are three macros, <a href="macro.FnOnce.html"><code>FnOnce</code></a>, <a href="macro.FnMut.html"><code>FnMut</code></a>
+and <a href="macro.Fn.html"><code>Fn</code></a>, corresponding to the three types of Rust closure.</li>
+<li>Wrap your closure with one of the macros and it will now implement
+<code>Copy</code>, <code>Clone</code>, <code>PartialEq</code>, <code>Eq</code>, <code>Hash</code>, <code>PartialOrd</code>, <code>Ord</code>,
+<code>Serialize</code>, <code>Deserialize</code> and <code>Debug</code>.</li>
+<li>There are some minor syntax limitations, which are documented below.</li>
+<li>This crate has one unavoidable but documented and sound usage of
+<code>unsafe</code>.</li>
+</ul>
+<h2 id="examples-of-wrapped-closures"><a href="#examples-of-wrapped-closures">Examples of wrapped closures</a></h2>
+<p><strong>Inferred, non-capturing closure:</strong></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>|a| a+<span class="number">1</span></code></pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">FnMut!</span>(|a| a+<span class="number">1</span>)</code></pre></div>
+<p><strong>Annotated, non-capturing closure:</strong></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code>|a: String| -&gt; String { a.to_uppercase() }</code></pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">FnMut!</span>(|a: String| -&gt; String { a.to_uppercase() })</code></pre></div>
+<p><strong>Inferred closure, capturing <code>num</code>:</strong></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>num = <span class="number">0</span>;
+|a| num += a</code></pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>num = <span class="number">0</span>;
+<span class="macro">FnMut!</span>(|a| num += a)</code></pre></div>
+<p><strong><code>move</code> closure, capturing <code>hello</code> and <code>world</code>:</strong></p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>hello = String::from(<span class="string">&quot;hello&quot;</span>);
+<span class="kw">let </span><span class="kw-2">mut </span>world = String::new();
+<span class="kw">move </span>|name| {
+    world += (hello.to_uppercase() + name).as_str();
+}</code></pre></div>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>hello = String::from(<span class="string">&quot;hello&quot;</span>);
+<span class="kw">let </span><span class="kw-2">mut </span>world = String::new();
+<span class="macro">FnMut!</span>(<span class="kw">move </span>|name| {
+    world += (hello.to_uppercase() + name).as_str();
+})</code></pre></div>
+<h2 id="limitations"><a href="#limitations">Limitations</a></h2>
+<p>There are currently some minor limitations:</p>
+<ul>
+<li>Use of types that start with a lowercase letter need might need to be
+disambiguated from variables. If you see an error like the following, fix
+the case of the type, or append it with <code>my_struct::&lt;&gt;</code> to disambiguate.</li>
+</ul>
+<div class="example-wrap"><pre class="language-text"><code>error[E0308]: mismatched types
+   --&gt; tests/test.rs:450:4
+    |
+449 |       FnOnce!(move || {
+    |  _____-
+450 | |         my_struct;
+    | |         ^^^^^^^^^ expected struct `serde_closure::internal::a_variable`, found struct `my_struct`
+451 | |     });
+    | |______- in this macro invocation
+    |
+    = note: expected type `serde_closure::internal::a_variable`
+               found type `my_struct`</code></pre></div>
+<ul>
+<li>Use of variables that start with an uppercase letter might need to be
+disambiguated from types. If you see an error like the following, fix the
+case of the variable, or wrap it with <code>(MyVariable)</code> to disambiguate.</li>
+</ul>
+<div class="example-wrap"><pre class="language-text"><code>error: imports cannot refer to local variables
+   --&gt; tests/test.rs:422:3
+    |
+417 |       FnOnce!(move || {
+    |  _____-
+418 | |         MyVariable;
+    | |         ^^^^^^^^^^
+419 | |     });
+    | |______- in this macro invocation
+    |</code></pre></div>
+<ul>
+<li>Functions and closures called inside the closure might need to be
+disambiguated. This can be done the same as above with <code>function::&lt;&gt;</code> for
+functions and <code>(closure)</code> for closures.</li>
+</ul>
+<h2 id="serializing-between-processes"><a href="#serializing-between-processes">Serializing between processes</a></h2>
+<p>Closures created by this crate are unnameable – i.e. just like normal
+closures, there is no Rust syntax available with which to write the type.
+What this means is that to deserialize a closure, you either need to specify
+the precise type you’re deserializing without naming it (which is possible
+but not particularly practical), or <em>erase</em> the type by storing it in a
+<a href="https://doc.rust-lang.org/beta/book/ch17-02-trait-objects.html">trait object</a>.</p>
+<p>The <a href="https://github.com/alecmocatta/serde_traitobject"><code>serde_traitobject</code></a>
+crate enables trait objects to be safely serialized and sent between other
+processes running the same binary.</p>
+<p>For example, if you have multiple forks of a process, or the same binary
+running on each of a cluster of machines,
+<a href="https://github.com/alecmocatta/serde_traitobject"><code>serde_traitobject</code></a>
+would help you to send serializable closures between them. This can be done
+by upcasting the closure to a <code>Box&lt;dyn serde_traitobject::Fn()&gt;</code>, which is
+automatically serializable and deserializable with
+<a href="https://github.com/serde-rs/serde"><code>serde</code></a>.</p>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="structs/index.html" title="serde_closure::structs mod">structs</a></div><div class="item-right docblock-short">Structs representing a serializable closure, created by the
+<a href="macro.FnOnce.html"><code>FnOnce</code></a>, <a href="macro.FnMut.html"><code>FnMut</code></a> and
+<a href="macro.Fn.html"><code>Fn</code></a> macros. They implement <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="std::ops::FnOnce"><code>std::ops::FnOnce</code></a>,
+<a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="std::ops::FnMut"><code>std::ops::FnMut</code></a> and <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="std::ops::Fn"><code>std::ops::Fn</code></a> respectively, as well as
+<a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html"><code>Debug</code></a>, <a href="../serde/ser/trait.Serialize.html"><code>Serialize</code></a> and
+<a href="../serde/de/trait.Deserialize.html"><code>Deserialize</code></a>, and various convenience traits.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="traits/index.html" title="serde_closure::traits mod">traits</a></div><div class="item-right docblock-short">Supertraits of <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="std::ops::FnOnce"><code>std::ops::FnOnce</code></a>, <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="std::ops::FnMut"><code>std::ops::FnMut</code></a> and
+<a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="std::ops::Fn"><code>std::ops::Fn</code></a> that are usable on stable Rust. They are implemented
+by closures created by the <a href="macro.FnOnce.html"><code>FnOnce</code></a>,
+<a href="macro.FnMut.html"><code>FnMut</code></a> and <a href="macro.Fn.html"><code>Fn</code></a> macros.</div></div></div><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.Fn.html" title="serde_closure::Fn macro">Fn</a></div><div class="item-right docblock-short">Macro that wraps a closure, evaluating to a <a href="structs/struct.Fn.html"><code>Fn</code></a> struct that
+implements <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html" title="std::ops::Fn"><code>std::ops::Fn</code></a>, <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html"><code>Debug</code></a>,
+<a href="../serde/ser/trait.Serialize.html"><code>Serialize</code></a> and <a href="../serde/de/trait.Deserialize.html"><code>Deserialize</code></a>, and
+various convenience traits.</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.FnMut.html" title="serde_closure::FnMut macro">FnMut</a></div><div class="item-right docblock-short">Macro that wraps a closure, evaluating to a <a href="structs/struct.FnMut.html"><code>FnMut</code></a> struct
+that implements <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html" title="std::ops::FnMut"><code>std::ops::FnMut</code></a>, <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html"><code>Debug</code></a>,
+<a href="../serde/ser/trait.Serialize.html"><code>Serialize</code></a> and <a href="../serde/de/trait.Deserialize.html"><code>Deserialize</code></a>, and
+various convenience traits.</div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.FnOnce.html" title="serde_closure::FnOnce macro">FnOnce</a></div><div class="item-right docblock-short">Macro that wraps a closure, evaluating to a <a href="structs/struct.FnOnce.html"><code>FnOnce</code></a>
+struct that implements <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html" title="std::ops::FnOnce"><code>std::ops::FnOnce</code></a>, <a href="https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html"><code>Debug</code></a>,
+<a href="../serde/ser/trait.Serialize.html"><code>Serialize</code></a> and <a href="../serde/de/trait.Deserialize.html"><code>Deserialize</code></a>, and
+various convenience traits.</div></div></div><h2 id="attributes" class="small-section-header"><a href="#attributes">Attribute Macros</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="attr" href="attr.generalize.html" title="serde_closure::generalize attr">generalize</a></div><div class="item-right docblock-short">Attribute macro that can be applied to items to generalize trait bounds
+<a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnOnce.html"><code>FnOnce(…)</code></a>, <a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.FnMut.html"><code>FnMut(…)</code></a> and
+<a href="https://doc.rust-lang.org/nightly/core/ops/function/trait.Fn.html"><code>Fn(…)</code></a> to <a href="traits/trait.FnOnce.html"><code>traits::FnOnce&lt;(…)&gt;</code></a>,
+<a href="traits/trait.FnMut.html"><code>traits::FnMut&lt;(…)&gt;</code></a> and <a href="traits/trait.Fn.html"><code>traits::Fn&lt;(…)&gt;</code></a>.</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="serde_closure" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (4b8f43199 2022-10-19)" ></div></body></html>

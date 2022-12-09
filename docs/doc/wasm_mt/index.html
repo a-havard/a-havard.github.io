@@ -1,0 +1,134 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A multithreading library for Rust and WebAssembly."><meta name="keywords" content="rust, rustlang, rust-lang, wasm_mt"><title>wasm_mt - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../normalize.css"><link rel="stylesheet" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../ayu.css" disabled><link rel="stylesheet" href="../dark.css" disabled><link rel="stylesheet" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script defer src="../crates.js"></script><script defer src="../main.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../wasm_mt/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../wasm_mt/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Crate wasm_mt</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.1.2</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li><li><a href="#macros">Macros</a></li><li><a href="#structs">Structs</a></li><li><a href="#trait-aliases">Trait Aliases</a></li></ul></section></div></nav><main><div class="width-limiter"><div class="sub-container"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Crate <a class="mod" href="#">wasm_mt</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/wasm_mt/lib.rs.html#1-339">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A multithreading library for Rust and WebAssembly.</p>
+<p><code>wasm-mt</code> helps you create and execute Web Worker based threads. You can program the threads simply using Rust closures and orchestrate them with <code>async/await</code>.</p>
+<h5 id="examples"><a href="#examples">Examples</a></h5>
+<ul>
+<li><strong><code>wasm-mt-pool</code></strong> - Thread pool library based on <code>wasm-mt</code>. [ <a href="https://crates.io/crates/wasm-mt-pool">crate</a> | <a href="https://github.com/w3reality/wasm-mt/tree/master/crates/pool">source</a> ]</li>
+</ul>
+<p>You can run all the following apps in browser!</p>
+<ul>
+<li><strong>exec</strong> - How to use <code>wasm_mt</code>. [ <a href="https://w3reality.github.io/wasm-mt/examples/exec/index.html">live</a> | <a href="https://github.com/w3reality/wasm-mt/tree/master/examples/exec">source</a> ]</li>
+<li><strong>fib</strong> - Computing a Fibonacci sequence with nested threads. [ <a href="https://w3reality.github.io/wasm-mt/examples/fib/index.html">live</a> | <a href="https://github.com/w3reality/wasm-mt/tree/master/examples/fib">source</a> ]</li>
+<li><strong>executors</strong> - Minimal serial/parallel executors using <code>wasm_mt</code>. [ <a href="https://w3reality.github.io/wasm-mt/examples/executors/index.html">live</a> | <a href="https://github.com/w3reality/wasm-mt/tree/master/examples/executors">source</a> ]</li>
+<li><strong>parallel</strong> - Julia set benchmark of serial/parallel executors. [ <a href="https://w3reality.github.io/wasm-mt/examples/parallel/index.html">live</a> | <a href="https://github.com/w3reality/wasm-mt/tree/master/examples/parallel">source</a> ]</li>
+<li><strong>arraybuffers</strong> - Demo of using <code>WasmMt::new_with_arraybuffers()</code>. [ <a href="https://w3reality.github.io/wasm-mt/examples/arraybuffers/index.html">live</a> | <a href="https://github.com/w3reality/wasm-mt/tree/master/examples/arraybuffers">source</a> ]</li>
+</ul>
+<h5 id="background-and-implementation"><a href="#background-and-implementation">Background and implementation</a></h5>
+<p>The preceding seminal work entitled <a href="https://rustwasm.github.io/2018/10/24/multithreading-rust-and-wasm.html">“Multithreading Rust and Wasm”</a> by <a href="https://github.com/alexcrichton">@alexcrichton</a> centers on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API"><em>Web Workers</em></a>, <em>shared memory</em>, and <a href="https://github.com/WebAssembly/threads/blob/master/proposals/threads/Overview.md">the WebAssembly threads proposal</a>. Shared memory is built on top of <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SharedArrayBuffer"><code>SharedArrayBuffer</code></a> whose <a href="https://caniuse.com/#feat=sharedarraybuffer">availability across major browsers</a> has been somewhat limited. Also, the rust-wasm thread implementation work, along with the threads proposal, seems still in progress.</p>
+<p>On the contrary, Web Worker based multithreading in JavaScript has been <a href="https://caniuse.com/#feat=webworkers">well supported for a long time</a>. After experimenting, we have come up to a Rust ergonomic multithreading solution that does not require <code>SharedArrayBuffer</code>. It just works across all major browsers today and we named it <code>wasm-mt</code>.</p>
+<p>Internally, we use the <a href="https://developer.mozilla.org/en-US/docs/Web/API/Worker/postMessage"><code>postMessage()</code></a> Web Worker API (through bindings provided by <a href="https://github.com/rustwasm/wasm-bindgen"><code>wasm-bindgen</code></a>) to initialize spawned threads. And, importantly, we keep using <code>postMessage()</code> for dynamically sending Rust closures (serialized by <a href="https://github.com/alecmocatta/serde_traitobject"><code>serde_traitobject</code></a>) to the spawned threads. By doing so, the parent thread can <code>await</code> the results of the closures executed in the spawned thread. We have found that this approach is highly flexible for extension, too. For example, it is straightforward to augment <code>WasmMt::Thread</code> to support more customized inter-thread communication patterns.</p>
+<p>Note, however, that <code>wasm-mt</code> has some remarkable limitations compared to the ongoing shared memory based multithreading work led by <code>wasm-bindgen</code>. <code>wasm-mt</code> is not efficient in that it does <strong>not include</strong> support of the standard thread primitive operations:</p>
+<ul>
+<li>shared memory based message passing and mutexes,</li>
+<li>atomic instructions and efficient memory handling per <a href="https://github.com/WebAssembly/threads/blob/master/proposals/threads/Overview.md">the threads proposal</a>.</li>
+</ul>
+<h5 id="thanks"><a href="#thanks">Thanks</a></h5>
+<ul>
+<li><a href="https://github.com/rustwasm/wasm-bindgen">wasm-bindgen</a> developers</li>
+<li><a href="https://github.com/alecmocatta">@alecmocatta</a> for the <a href="https://github.com/alecmocatta/serde_traitobject">serde_traitobject</a> crate</li>
+<li><a href="https://github.com/swc-project">swc-project</a> that facilitates the <a href="https://github.com/w3reality/wasm-mt/tree/master/crates/test">wasm-mt-test</a> crate</li>
+</ul>
+<h2 id="getting-started"><a href="#getting-started">Getting started</a></h2>
+<p>Requirements:</p>
+<ul>
+<li>rustc (nightly)</li>
+<li><a href="https://github.com/rustwasm/wasm-pack#%EF%B8%8F-commands"><code>wasm-pack build</code></a> with the <a href="https://rustwasm.github.io/docs/wasm-bindgen/reference/deployment.html#without-a-bundler"><code>--target no-modules</code></a> option</li>
+</ul>
+<p>Cargo.toml:</p>
+<div class="example-wrap"><pre class="language-toml"><code>wasm-mt = &quot;0.1&quot;
+serde = { version = &quot;1.0&quot;, features = [&quot;derive&quot;] }
+serde_closure = &quot;0.2&quot;</code></pre></div><h2 id="creating-a-thread"><a href="#creating-a-thread">Creating a thread</a></h2>
+<p>First, create a <a href="struct.WasmMt.html" title="WasmMt"><code>WasmMt</code></a> thread builder with <a href="struct.WasmMt.html#method.new" title="WasmMt::new"><code>new</code></a> and initialize it:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">use </span>wasm_mt::prelude::<span class="kw-2">*</span>;
+
+<span class="kw">let </span>pkg_js = <span class="string">&quot;./pkg/exec.js&quot;</span>; <span class="comment">// path to `wasm-bindgen`&#39;s JS binding
+</span><span class="kw">let </span>mt = WasmMt::new(pkg_js).and_init().<span class="kw">await</span>.unwrap();</code></pre></div>
+<p>Then, create a <a href="struct.Thread.html" title="Thread"><code>wasm_mt::Thread</code></a> with the <a href="struct.WasmMt.html#method.thread" title="WasmMt::thread"><code>thread</code></a> function and initialize it:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>th = mt.thread().and_init().<span class="kw">await</span>.unwrap();</code></pre></div>
+<h2 id="executing-a-thread"><a href="#executing-a-thread">Executing a thread</a></h2>
+<p>Using the <a href="macro.exec.html" title="exec!"><code>exec!</code></a> macro, you can execute a closure in the thread and <code>await</code> the result:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// fn add(a: i32, b: i32) -&gt; i32 { a + b }
+
+</span><span class="kw">let </span>a = <span class="number">1</span>;
+<span class="kw">let </span>b = <span class="number">2</span>;
+<span class="kw">let </span>ans = <span class="macro">exec!</span>(th, <span class="kw">move </span>|| {
+    <span class="kw">let </span>c = add(a, b);
+
+    <span class="prelude-val">Ok</span>(JsValue::from(c))
+}).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(ans, JsValue::from(<span class="number">3</span>));</code></pre></div>
+<p>You can also execute an <a href="https://github.com/rust-lang/rfcs/blob/master/text/2394-async_await.md#async--closures">async closure</a> with <code>exec!</code>:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="comment">// use wasm_mt::utils::sleep;
+// async fn sub(a: i32, b: i32) -&gt; i32 {
+//    sleep(1000).await;
+//    a - b
+// }
+
+</span><span class="kw">let </span>a = <span class="number">1</span>;
+<span class="kw">let </span>b = <span class="number">2</span>;
+<span class="kw">let </span>ans = <span class="macro">exec!</span>(th, <span class="kw">async move </span>|| {
+    <span class="kw">let </span>c = sub(a, b).<span class="kw">await</span>;
+
+    <span class="prelude-val">Ok</span>(JsValue::from(c))
+}).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(ans, JsValue::from(-<span class="number">1</span>));</code></pre></div>
+<h2 id="executing-javascript-in-a-thread"><a href="#executing-javascript-in-a-thread">Executing JavaScript in a thread</a></h2>
+<p>Using the <a href="macro.exec_js.html" title="exec_js!"><code>exec_js!</code></a> macro, you can execute JavaScript within a thread:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>ans = <span class="macro">exec_js!</span>(th, <span class="string">&quot;
+    const add = (a, b) =&gt; a + b;
+    return add(1, 2);
+&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(ans, JsValue::from(<span class="number">3</span>));</code></pre></div>
+<p>Similarly, use <a href="macro.exec_js_async.html" title="exec_js_async!"><code>exec_js_async!</code></a> for running asynchronous JavaScript:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span>ans = <span class="macro">exec_js_async!</span>(th, <span class="string">&quot;
+    const sub = (a, b) =&gt; new Promise(resolve =&gt; {
+        setTimeout(() =&gt; resolve(a - b), 1000);
+    });
+    return await sub(1, 2);
+&quot;</span>).<span class="kw">await</span><span class="question-mark">?</span>;
+<span class="macro">assert_eq!</span>(ans, JsValue::from(-<span class="number">1</span>));</code></pre></div>
+<h2 id="making-executors"><a href="#making-executors">Making executors</a></h2>
+<p>By using <a href="struct.Thread.html" title="Thread"><code>wasm_mt:Thread</code></a>, you can easily create custom executors. One such example is the <a href="https://crates.io/crates/wasm-mt-pool"><code>wasm-mt-pool</code> crate</a>. It provides a <a href="https://doc.rust-lang.org/book/ch20-02-multithreaded.html#improving-throughput-with-a-thread-pool">thread pool</a> that is based on the <a href="https://en.wikipedia.org/wiki/Work_stealing">work stealing</a> scheduling strategy.</p>
+<p>Here, for simplicity, we show the implementation of much more  straightforward executors: a serial executor and a parallel executor.</p>
+<p>First, prepare a <code>Vec&lt;wasm_mt::Thread&gt;</code> containing initialized threads:</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="kw">let </span><span class="kw-2">mut </span>v: Vec&lt;wasm_mt::Thread&gt; = <span class="macro">vec!</span>[];
+<span class="kw">for </span>i <span class="kw">in </span><span class="number">0</span>..<span class="number">4 </span>{
+    <span class="kw">let </span>th = mt.thread().and_init().<span class="kw">await</span><span class="question-mark">?</span>;
+    v.push(th);
+}</code></pre></div>
+<p>Then, here’s the executors in action. Note, in the latter case, we are using <a href="https://rustwasm.github.io/wasm-bindgen/api/wasm_bindgen_futures/fn.spawn_local.html"><code>wasm_bindgen_futures::spawn_local</code></a> to dispatch the threads in parallel.</p>
+
+<div class="example-wrap"><pre class="rust rust-example-rendered"><code><span class="macro">console_ln!</span>(<span class="string">&quot;🚀 serial executor:&quot;</span>);
+<span class="kw">for </span>th <span class="kw">in </span><span class="kw-2">&amp;</span>v {
+    <span class="macro">console_ln!</span>(<span class="string">&quot;starting a thread&quot;</span>);
+    <span class="kw">let </span>ans = <span class="macro">exec!</span>(th, <span class="kw">move </span>|| <span class="prelude-val">Ok</span>(JsValue::from(<span class="number">42</span>))).<span class="kw">await</span><span class="question-mark">?</span>;
+    <span class="macro">console_ln!</span>(<span class="string">&quot;ans: {:?}&quot;</span>, ans);
+}
+
+<span class="macro">console_ln!</span>(<span class="string">&quot;🚀 parallel executor:&quot;</span>);
+<span class="kw">for </span>th <span class="kw">in </span>v {
+    spawn_local(<span class="kw">async move </span>{
+        <span class="macro">console_ln!</span>(<span class="string">&quot;starting a thread&quot;</span>);
+        <span class="kw">let </span>ans = <span class="macro">exec!</span>(th, <span class="kw">move </span>|| <span class="prelude-val">Ok</span>(JsValue::from(<span class="number">42</span>))).<span class="kw">await</span>.unwrap();
+        <span class="macro">console_ln!</span>(<span class="string">&quot;ans: {:?}&quot;</span>, ans);
+    });
+}</code></pre></div>
+<p>Observe the starting/ending timing of each thread in the developer console:</p>
+<div class="example-wrap"><pre class="language-text"><code>🚀 serial executor:
+starting a thread
+ans: JsValue(42)
+starting a thread
+ans: JsValue(42)
+starting a thread
+ans: JsValue(42)
+starting a thread
+ans: JsValue(42)
+🚀 parallel executor:
+(4) starting a thread
+(4) ans: JsValue(42)</code></pre></div></div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="prelude/index.html" title="wasm_mt::prelude mod">prelude</a></div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="utils/index.html" title="wasm_mt::utils mod">utils</a></div></div></div><h2 id="macros" class="small-section-header"><a href="#macros">Macros</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.console_ln.html" title="wasm_mt::console_ln macro">console_ln</a></div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.debug_ln.html" title="wasm_mt::debug_ln macro">debug_ln</a></div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.exec.html" title="wasm_mt::exec macro">exec</a></div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.exec_js.html" title="wasm_mt::exec_js macro">exec_js</a></div></div><div class="item-row"><div class="item-left module-item"><a class="macro" href="macro.exec_js_async.html" title="wasm_mt::exec_js_async macro">exec_js_async</a></div></div></div><h2 id="structs" class="small-section-header"><a href="#structs">Structs</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.Thread.html" title="wasm_mt::Thread struct">Thread</a></div></div><div class="item-row"><div class="item-left module-item"><a class="struct" href="struct.WasmMt.html" title="wasm_mt::WasmMt struct">WasmMt</a></div></div></div><h2 id="trait-aliases" class="small-section-header"><a href="#trait-aliases">Trait Aliases</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="traitalias" href="traitalias.MtAsyncClosure.html" title="wasm_mt::MtAsyncClosure traitalias">MtAsyncClosure</a></div></div><div class="item-row"><div class="item-left module-item"><a class="traitalias" href="traitalias.MtClosure.html" title="wasm_mt::MtClosure traitalias">MtClosure</a></div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="wasm_mt" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (4b8f43199 2022-10-19)" ></div></body></html>

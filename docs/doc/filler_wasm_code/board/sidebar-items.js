@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"fn":[["get_char_from_int","Converts an integer to its corresponding char"],["get_int_from_char","Converts a char to its corresponding integer"]],"struct":[["Board","A Board struct keeping track of the current state, specifically the current board and the current player’s turn"]]};

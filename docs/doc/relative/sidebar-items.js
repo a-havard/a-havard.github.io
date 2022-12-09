@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"struct":[["Vtable","Wraps `&'static` references to vtables such that they can be safely sent between other processes running the same binary."]]};

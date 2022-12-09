@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"macro":[["console_ln",""],["debug_ln",""],["exec",""],["exec_js",""],["exec_js_async",""]],"mod":[["prelude",""],["utils",""]],"struct":[["Thread",""],["WasmMt",""]],"traitalias":[["MtAsyncClosure",""],["MtClosure",""]]};

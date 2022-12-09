@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"trait":[["AsMutSlice","Something that can be seen as an mutable slice"],["AsSlice","Something that can be seen as an immutable slice"]]};

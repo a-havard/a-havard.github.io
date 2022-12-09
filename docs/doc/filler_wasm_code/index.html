@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="rustdoc"><meta name="description" content="A Filler calulation algorithm."><meta name="keywords" content="rust, rustlang, rust-lang, filler_wasm_code"><title>filler_wasm_code - Rust</title><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Regular.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../FiraSans-Medium.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Regular.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceSerif4-Bold.ttf.woff2"><link rel="preload" as="font" type="font/woff2" crossorigin href="../SourceCodePro-Semibold.ttf.woff2"><link rel="stylesheet" href="../normalize.css"><link rel="stylesheet" href="../rustdoc.css" id="mainThemeStyle"><link rel="stylesheet" href="../ayu.css" disabled><link rel="stylesheet" href="../dark.css" disabled><link rel="stylesheet" href="../light.css" id="themeStyle"><script id="default-settings" ></script><script src="../storage.js"></script><script defer src="../crates.js"></script><script defer src="../main.js"></script><noscript><link rel="stylesheet" href="../noscript.css"></noscript><link rel="alternate icon" type="image/png" href="../favicon-16x16.png"><link rel="alternate icon" type="image/png" href="../favicon-32x32.png"><link rel="icon" type="image/svg+xml" href="../favicon.svg"></head><body class="rustdoc mod crate"><!--[if lte IE 11]><div class="warning">This old browser is unsupported and will most likely display funky things.</div><![endif]--><nav class="mobile-topbar"><button class="sidebar-menu-toggle">&#9776;</button><a class="sidebar-logo" href="../filler_wasm_code/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"></h2></nav><nav class="sidebar"><a class="sidebar-logo" href="../filler_wasm_code/index.html"><div class="logo-container"><img class="rust-logo" src="../rust-logo.svg" alt="logo"></div></a><h2 class="location"><a href="#">Crate filler_wasm_code</a></h2><div class="sidebar-elems"><ul class="block"><li class="version">Version 0.1.0</li><li><a id="all-types" href="all.html">All Items</a></li></ul><section><ul class="block"><li><a href="#modules">Modules</a></li></ul></section></div></nav><main><div class="width-limiter"><div class="sub-container"><nav class="sub"><form class="search-form"><div class="search-container"><span></span><input class="search-input" name="search" autocomplete="off" spellcheck="false" placeholder="Click or press ‘S’ to search, ‘?’ for more options…" type="search"><div id="help-button" title="help" tabindex="-1"><a href="../help.html">?</a></div><div id="settings-menu" tabindex="-1"><a href="../settings.html" title="settings"><img width="22" height="22" alt="Change settings" src="../wheel.svg"></a></div></div></form></nav></div><section id="main-content" class="content"><div class="main-heading"><h1 class="fqn">Crate <a class="mod" href="#">filler_wasm_code</a><button id="copy-path" onclick="copy_path(this)" title="Copy item path to clipboard"><img src="../clipboard.svg" width="19" height="18" alt="Copy item path"></button></h1><span class="out-of-band"><a class="srclink" href="../src/filler_wasm_code/lib.rs.html#1-111">source</a> · <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">[<span class="inner">&#x2212;</span>]</a></span></div><details class="rustdoc-toggle top-doc" open><summary class="hideme"><span>Expand description</span></summary><div class="docblock"><p>A Filler calulation algorithm.</p>
+<p>Long story short, this is an implementation of the minimax algorithm applied
+to the game Filler, which is present in the iMessage GamePigeon app. So far,
+I have implemented alpha-beta pruning and transposition tables, and I am
+planning on implementing pre-sorting soon (which works well with alpha-beta
+pruning).</p>
+<p>Below is a list of everything exposed to JavaScript:</p>
+<ul>
+<li>
+<p>gen_random_board() - See prep module</p>
+</li>
+<li>
+<p>get_choices() - See decision_making module</p>
+</li>
+<li>
+<p>solve_board() - See below</p>
+</li>
+<li>
+<p>Board struct - See board module</p>
+<ul>
+<li>from_str()</li>
+<li>get_string()</li>
+<li>get_cell()</li>
+<li>get_player_turn()</li>
+<li>get_player_squares()</li>
+<li>run_turn()</li>
+</ul>
+</li>
+</ul>
+</div></details><h2 id="modules" class="small-section-header"><a href="#modules">Modules</a></h2><div class="item-table"><div class="item-row"><div class="item-left module-item"><a class="mod" href="board/index.html" title="filler_wasm_code::board mod">board</a></div><div class="item-right docblock-short">Describes a board object which contains both an 8x7 board, as well as the
+current player whose turn it is to move. This file also includes utility
+functions to convert board cells from chars to ints and vice versa.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="cache/index.html" title="filler_wasm_code::cache mod">cache</a></div><div class="item-right docblock-short">This file describes 2 different caches, an information cache and a value
+cache. These caches are used to reduce redundant calculations, as some
+boards are encountered more than once throughout a search.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="decision_making/index.html" title="filler_wasm_code::decision_making mod">decision_making</a></div><div class="item-right docblock-short">This file implements the minimax algorithm, applied to the Filler game.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="distribution_timer/index.html" title="filler_wasm_code::distribution_timer mod">distribution_timer</a></div><div class="item-right docblock-short">The DistributionTimer is used to time how long each section of a given
+algorithm takes, specifically for the minimax algorithm.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="prep/index.html" title="filler_wasm_code::prep mod">prep</a></div><div class="item-right docblock-short">This file is used for any data preparation necessary.
+Right now, it just allows you to generate a random board.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="stat_calculation/index.html" title="filler_wasm_code::stat_calculation mod">stat_calculation</a></div><div class="item-right docblock-short">These functions are used for calculations for means and standard deviations
+Nothing here is WASM-compatible.</div></div><div class="item-row"><div class="item-left module-item"><a class="mod" href="stats/index.html" title="filler_wasm_code::stats mod">stats</a></div><div class="item-right docblock-short">The Stats struct is used to capture various statistics generated during the
+runtime of the algorithm. This includes:</div></div></div></section></div></main><div id="rustdoc-vars" data-root-path="../" data-current-crate="filler_wasm_code" data-themes="ayu,dark,light" data-resource-suffix="" data-rustdoc-version="1.66.0-nightly (4b8f43199 2022-10-19)" ></div></body></html>

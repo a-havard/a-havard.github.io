@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"attr":[["generalize",""]],"macro":[["Fn",""],["FnMut",""],["FnOnce",""]]};

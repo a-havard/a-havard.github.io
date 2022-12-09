@@ -1,0 +1,1 @@
+window.SIDEBAR_ITEMS = {"enum":[["FcntlArg",""],["FlockArg",""]],"fn":[["fcntl",""],["flock",""],["open",""],["openat",""],["readlink",""],["readlinkat",""],["renameat",""]],"struct":[["AtFlags",""],["FdFlag","Additional configuration flags for `fcntl`’s `F_SETFD`."],["OFlag","Configuration options for opened files."]]};
